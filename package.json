@@ -1,9 +1,9 @@
 {
   "name": "burger",
-  "version": "1.0.0",,
+  "version": "1.0.0",
   "private": true,
   "description": "Burger logger with a homemade ORM, MySQL, Node, Express, handlebars using the MVC design pattern.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
