@@ -14,11 +14,11 @@
 	<div class="container">
 		<div class="jumbotron text-center">
 			<h1>Der Burger Haus!</h1>
-			<input type="text" class="input-lg" placeholder="Enter Burger">
-			<button type="button" class="btn btn-lg btn-primary" id="submit">Place Der Order, Ya!</button>
+			<input type="text" class="input-lg" placeholder="Enter Burger" id="burgerIn">
+			<button type="submit" class="btn btn-lg btn-primary" id="submit">Place Der Order, Ya!</button>
 		</div>
 		<div class="row">
-			<div class="col-md-6 panel text-center">
+			<div class="col-md-6 panel text-center" id="readyToEat">
 				<div class="panel-heading">
 					<h2>Ready to Eat:</h2>
 				</div>
@@ -32,5 +32,32 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		
+		$('button').on('click', function(){
+			var burgerIn = $("#burgerIn").val().trim();
+
+			if(burgerIn === ""){
+				alert("Please enter a burger!");
+			} else {
+				// get current url
+			var currentURL = window.location.origin; 
+
+			// post the user object to the friends api array
+			$.post( currentURL + "/api/" + burgerIn).done(function(data){
+			 	console.log(data);
+			 	
+			 }) 
+
+			$("#readyToEat").append("<h3 style='display:inline;padding-right:5px;'>" + burgerIn + "</h3>" +
+			 		"<button type='submit' class='btn btn-md btn-danger btn-inline'>Eat me!</button><br>");
+			};
+			
+
+			// clear form data
+			 $("#burgerIn").val('');
+			
+		});
+	</script>
 </body>
 </html>

@@ -31,9 +31,11 @@ module.exports = function(app){
 
 		var newBurger = req.params.burger;
 
+		console.log(newBurger);
 		orm.addBurger(newBurger, function(data){
-			res.jason(data);
+			res.json(data);
 		});
+
 
 	});
 	

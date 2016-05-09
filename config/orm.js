@@ -14,17 +14,6 @@ var orm = {
         });
 	},
 
-	findBurger: function(burger, callback){
-		var s = "SELECT * FROM burgers WHERE burger_name = " + burger;
-
-		connection.query(s, function(err, result) {
-            
-            callback(result);
-
-        });
-
-	},
-
 	addBurger: function(burger, callback){
 		
 		var s = "INSERT INTO burgers (burger_name, devoured) VALUES (?,false)";
@@ -37,17 +26,7 @@ var orm = {
         
 	}
 
-	// eatenBurger: function(burger, callback){
-	// 	var s = "UPDATE burgers SET devoured = true WHERE burger = ?";
-
-	// 	connection.query(s, [burger], function(err, result) {
-	 
- //            callback(result);
-
- //        });
-
-	// }
-
+	
     
 };
     
