@@ -18,8 +18,8 @@ app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
 // Routes
 // =============================================================
-require("./controllers/burgers_controller.js")(app);
 
+require("./controllers/burgers_controller.js")(app);
 
 
 

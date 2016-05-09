@@ -1,7 +1,24 @@
-var orm = require('../config/orm.js');
+// var orm = require('../config/orm.js');
 
 
-var burger = //some Function...
+ 
+
+// var burger = {	
+
+// 	addBurger: function(req, res){
+
+			
+// 			orm.addBurger(req.body,function(data){
+// 				res.send(data)
+// 			});
+
+// 	}
 
 
-module.exports = burger;
+// };
+
+
+
+
+
+// module.exports = burger;

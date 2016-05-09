@@ -1,4 +1,6 @@
 var connection = require('./connection.js');
+var burger = require('../models/burger.js');
+
 
 //Object Relational Mapping (ORM)
 var orm = {
@@ -12,10 +14,10 @@ var orm = {
         });
 	},
 
-	addBurger: function(burger, callback){
-		var s = "INSERT INTO burgers (burger_name, devoured) VALUES (?,?)";
+	findBurger: function(burger, callback){
+		var s = "SELECT * FROM burgers WHERE burger_name = " + burger;
 
-		connection.query(s,[burger.burger_name, burger.devoured], function(err, result) {
+		connection.query(s, function(err, result) {
             
             callback(result);
 
@@ -23,27 +25,28 @@ var orm = {
 
 	},
 
-	eatenBurger: function(burger, callback){
-		var s = "SELECT * FROM burgers WHERE devoured = true;";
+	addBurger: function(burger, callback){
+		
+		var s = "INSERT INTO burgers (burger_name, devoured) VALUES (?,false)";
 
-		connection.query(s, function(err, result) {
-	 
+		connection.query(s,[burger], function(err, result) {
+            
             callback(result);
 
         });
-
-	},
-
-	searchBurger: function(burger, callback){
-		var s = "SELECT * FROM burgers WHERE burger_name=?";
-
-		connection.query(s, function(err, result) {
-	 
-            callback(result);
-
-        });
-
+        
 	}
+
+	// eatenBurger: function(burger, callback){
+	// 	var s = "UPDATE burgers SET devoured = true WHERE burger = ?";
+
+	// 	connection.query(s, [burger], function(err, result) {
+	 
+ //            callback(result);
+
+ //        });
+
+	// }
 
     
 };
