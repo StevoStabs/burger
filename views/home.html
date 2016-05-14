@@ -18,46 +18,98 @@
 			<button type="submit" class="btn btn-lg btn-primary" id="submit">Place Der Order, Ya!</button>
 		</div>
 		<div class="row">
-			<div class="col-md-6 panel text-center" id="readyToEat">
+			<div class="col-md-6 panel text-center">
 				<div class="panel-heading">
 					<h2>Ready to Eat:</h2>
 				</div>
-				<div class="panel-body"></div>
+				<div class="panel-body" id="readyToEat"></div>
 			</div>
 			<div class="col-md-6 panel text-center">
 				<div class="panel-heading">
 					<h2>Kaput!</h2>
 				</div>
-				<div class="panel-body"></div>
+				<div class="panel-body" id="eaten"></div>
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
-		
-		$('button').on('click', function(){
-			var burgerIn = $("#burgerIn").val().trim();
 
-			if(burgerIn === ""){
+
+		var currentURL = window.location.origin;
+		console.log(window.location.origin + "/api");
+
+		$.get(currentURL + "/api", function(data){
+			//console.log(data.burger_name);
+			//console.log(data[0].burger_name);
+
+			for(i=0; i<data.length; i++){
+				console.log(data[i].burger_name);
+				console.log(data[i].devoured);
+				if(data[i].devoured === false){
+					$('#readyToEat').append("<h3 style='display:inline;padding-right:5px;'>" + data[i].burger_name + "</h3>" +
+			 		"<button type='submit' class='btn btn-md btn-danger btn-inline eatMe'>Eat me!</button><br>");
+
+				} else if(data[i].devoured === true){
+					$('#eaten').append("<h3 style='display:inline;padding-right:5px;'>" + data[i].burger_name + "</h3><br>");
+				}
+			};
+		})
+
+
+
+		$('#submit').on('click', function(){
+			var burgerIn = {
+				burger_name: $("#burgerIn").val().trim(),
+				devoured: false
+			};
+
+			console.log(burgerIn.burger_name);
+
+			if(burgerIn.burger_name === ""){
 				alert("Please enter a burger!");
 			} else {
 				// get current url
-			var currentURL = window.location.origin; 
+			 
 
 			// post the user object to the friends api array
-			$.post( currentURL + "/api/" + burgerIn).done(function(data){
+			$.post( currentURL + "/api/", burgerIn).done(function(data){
 			 	console.log(data);
 			 	
 			 }) 
 
-			$("#readyToEat").append("<h3 style='display:inline;padding-right:5px;'>" + burgerIn + "</h3>" +
-			 		"<button type='submit' class='btn btn-md btn-danger btn-inline'>Eat me!</button><br>");
+			// $("#readyToEat").append("<h3 style='display:inline;padding-right:5px;'>" + burgerIn.burger_name + "</h3>" +
+			//  		"<button type='submit' class='btn btn-md btn-danger btn-inline eatMe'>Eat me!</button><br>");
 			};
 			
-
 			// clear form data
-			 $("#burgerIn").val('');
+			$("#burgerIn").val('');
+
+			$('.eatMe').on('click', function(){
+				// $('#eaten').append($(this).prev());
+				// $(this).prev().remove();
+				// $('#eaten').append('<br>');
+				// $(this).remove();
+				var burgerOut = {
+					burger_name: $(this).prev().text(),
+					devoured: true
+				};
+				console.log(burgerOut.burger_name);
+				
+				$.post( currentURL + "/api/", burgerOut).done(function(data){
+			 	console.log(data);
+			 	
+				 }) 
+				
+				
+			});
+			
+
 			
 		});
+
+
+
+		
 	</script>
 </body>
 </html>

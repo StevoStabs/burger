@@ -26,8 +26,35 @@ var orm = {
         
 	}
 
+  // eatBurger: function(burger, callback){
+
+  //   var s = "UPDATE burgers SET devoured=1 WHERE burger_name=?";
+
+  //   connection.query(s,[burger], function(err, result) {
+            
+  //           callback(result);
+
+  //       });
+  // }
+
 	
     
 };
     
 module.exports = orm;
+
+////////////////////////////////////////////////////////////////////////////////////
+// sequelize
+////////////////////////////////////////////////////////////////////////////////////
+
+// var sequelize = new Sequelize('database', 'username', 'password', {
+//   	host: 'localhost',
+//   	dialect: 'mysql',
+
+//   	pool: {
+//     	max: 5,
+//     	min: 0,
+//     	idle: 10000
+//   	}
+// });
+

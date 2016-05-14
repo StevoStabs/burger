@@ -1,6 +1,6 @@
 var express = require('express');
-var burger = require('../models/burger.js');
-var orm = require('../config/orm.js');
+var Burger = require('../models/burger.js');
+//var orm = require('../config/orm.js');
 var path = require('path');
 var bodyParser = require('body-parser');
 
@@ -21,20 +21,22 @@ module.exports = function(app){
 	
 	app.get('/api', function(req, res){
 
-		orm.allBurgers(function(data){
-			res.json(data);
-		});	
+		Burger.findAll({})
+					.then(function(result){
+						res.json(result);
+				})
 		
 	});
 
-	app.post('/api/:burger', function(req, res){
+	app.post('/api', function(req, res){
 
-		var newBurger = req.params.burger;
+		var newBurger = req.body;
 
-		console.log(newBurger);
-		orm.addBurger(newBurger, function(data){
-			res.json(data);
-		});
+		console.log(req.body);
+		 Burger.create({
+		 	burger_name: newBurger.burger_name,
+		 	devoured: newBurger.devoured
+		 });
 
 
 	});
